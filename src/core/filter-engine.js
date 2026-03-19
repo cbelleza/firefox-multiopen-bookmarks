@@ -1,14 +1,29 @@
 import { toLowerSafe } from "../utils/helpers.js";
 
+const SEARCHABLE_URL_CACHE_MAX = 4096;
+const searchableUrlCache = new Map();
+
 function getSearchableUrl(url) {
   if (!url) return "";
 
+  const cached = searchableUrlCache.get(url);
+  if (cached !== undefined) {
+    return cached;
+  }
+
+  let normalized;
   try {
     const parsed = new URL(url);
-    return toLowerSafe(`${parsed.hostname}${parsed.pathname}`);
+    normalized = toLowerSafe(`${parsed.hostname}${parsed.pathname}`);
   } catch {
-    return toLowerSafe(String(url).split(/[?#]/)[0]);
+    normalized = toLowerSafe(String(url).split(/[?#]/)[0]);
   }
+
+  if (searchableUrlCache.size >= SEARCHABLE_URL_CACHE_MAX) {
+    searchableUrlCache.delete(searchableUrlCache.keys().next().value);
+  }
+  searchableUrlCache.set(url, normalized);
+  return normalized;
 }
 
 function filterNode(node, termLower) {

@@ -375,6 +375,10 @@ body {
   white-space: nowrap;
 }
 
+.tree-row:hover .tree-title {
+  font-weight: 600;
+}
+
 .tree-url {
   margin-left: auto;
   opacity: 0.6;

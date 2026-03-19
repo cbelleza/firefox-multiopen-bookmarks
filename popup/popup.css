@@ -386,6 +386,10 @@ body {
   white-space: nowrap;
 }
 
+.tree-row:hover .tree-title {
+  font-weight: 600;
+}
+
 .title-wrapper {
   display: inline-flex;
   align-items: center;

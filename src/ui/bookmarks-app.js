@@ -10,6 +10,7 @@ import { createUiState } from "./state.js";
 import { logError } from "../utils/logger.js";
 
 const SEARCH_DEBOUNCE_MS = 120;
+const SELECTION_PERSIST_MS = 200;
 
 function bindElements(root) {
   return {
@@ -101,6 +102,25 @@ export async function initBookmarksApp(rootSelector = "body") {
   let contextTarget = null;
   let redrawRafId = null;
   let searchDebounceId = null;
+  let selectionPersistTimer = null;
+
+  function flushSelectionPersist() {
+    if (selectionPersistTimer !== null) {
+      window.clearTimeout(selectionPersistTimer);
+      selectionPersistTimer = null;
+    }
+    void setSelectedBookmarkIds(selectionStore.getSelectedIds());
+  }
+
+  function scheduleSelectionPersist() {
+    if (selectionPersistTimer !== null) {
+      window.clearTimeout(selectionPersistTimer);
+    }
+    selectionPersistTimer = window.setTimeout(() => {
+      selectionPersistTimer = null;
+      void setSelectedBookmarkIds(selectionStore.getSelectedIds());
+    }, SELECTION_PERSIST_MS);
+  }
 
   const [rawTree, settings, savedSelectionIds] = await Promise.all([getTree(), getSettings(), getSelectedBookmarkIds()]);
   const { nodes, index } = buildBookmarkTree(rawTree, []);
@@ -136,9 +156,12 @@ export async function initBookmarksApp(rootSelector = "body") {
 
   syncSearchUi();
 
-  function getCurrentListBookmarkIds() {
+  function getCurrentListBookmarkIds(searchResultsOverride) {
     const query = uiState.getState().query.trim();
-    if (query) return getSearchResultItems().map((item) => item.id);
+    if (query) {
+      const items = searchResultsOverride !== undefined ? searchResultsOverride : getSearchResultItems();
+      return items.map((item) => item.id);
+    }
 
     const state = uiState.getState();
     const canUseCurrent = isFolderInsideRoot(index, state.currentFolderId, state.rootFolderId);
@@ -186,7 +209,7 @@ export async function initBookmarksApp(rootSelector = "body") {
       elements.selectedCountText.dataset.count = selectedCount;
     }
     elements.clearSelectionBtn && (elements.clearSelectionBtn.disabled = selectedCount === 0);
-    setSelectedBookmarkIds(selectionStore.getSelectedIds());
+    scheduleSelectionPersist();
   }
 
   function closeContextMenu() {
@@ -277,7 +300,7 @@ export async function initBookmarksApp(rootSelector = "body") {
     const state = uiState.getState();
     const query = state.query.trim();
     const searchResults = query ? getSearchResultItems() : [];
-    const visibleIds = getCurrentListBookmarkIds();
+    const visibleIds = getCurrentListBookmarkIds(query ? searchResults : undefined);
     const visibleStats = selectionStore.getSelectionStats(visibleIds);
     const allVisibleSelected = visibleIds.length > 0 && visibleStats.checked;
 
@@ -607,6 +630,14 @@ export async function initBookmarksApp(rootSelector = "body") {
   window.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       closeContextMenu();
+    }
+  });
+
+  window.addEventListener("pagehide", flushSelectionPersist);
+  window.addEventListener("beforeunload", flushSelectionPersist);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+      flushSelectionPersist();
     }
   });
 

@@ -1,10 +1,6 @@
 const FOLDER_ICON = "📁";
 const FAVICON_PLACEHOLDER = "🔖";
 
-// Common styles
-const ROW_BASE_STYLE = "cursor: pointer;";
-const TITLE_HOVER_STYLE = "font-weight: bold;";
-
 function getFaviconUrl(url) {
   if (!url) return "";
   try {
@@ -96,10 +92,6 @@ function createFolderItem(node, handlers, isRootFolder, query = "") {
   title.textContent = node.title;
   title.style.cssText = "cursor: pointer;";
 
-  // Hover effect
-  row.addEventListener("mouseenter", () => { title.style.fontWeight = "bold"; });
-  row.addEventListener("mouseleave", () => { title.style.fontWeight = ""; });
-
   const rootButton = document.createElement("button");
   rootButton.type = "button";
   rootButton.className = `folder-root-btn${isRootFolder ? " is-active" : ""}`;
@@ -149,10 +141,6 @@ function createBookmarkItem(node, handlers, isSelected, pathLabel = "", query = 
   title.className = "tree-title";
   title.textContent = node.title;
   title.style.cssText = "cursor: pointer;";
-
-  // Hover effect
-  row.addEventListener("mouseenter", () => { title.style.fontWeight = "bold"; });
-  row.addEventListener("mouseleave", () => { title.style.fontWeight = ""; });
 
   row.addEventListener("click", (event) => {
     const target = event.target;
