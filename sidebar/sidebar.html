@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MultiOpen Bookmarks</title>
+    <link rel="stylesheet" href="./sidebar.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="toolbar">
+        <div class="toolbar-top-row">
+          <div class="search-input-wrap">
+            <input data-role="search-input" type="search" placeholder="Search Title Or URL" />
+            <button data-role="clear-search-btn" type="button" class="clear-search-btn" aria-label="Clear search text" title="Clear search text" hidden>×</button>
+          </div>
+        </div>
+      </header>
+
+      <section class="actions">
+        <label class="toggle-row">
+          <input data-role="skip-open-toggle" type="checkbox" />
+          Skip Already Open Tabs
+        </label>
+        <span data-role="selected-count" class="counter" data-count="0">Selected: 0</span>
+        <div class="buttons">
+          <button data-role="clear-selection-btn" type="button" title="Clean all selected items" aria-label="Clean All Items">
+            <span class="btn-icon" aria-hidden="true">☒</span>
+            <span class="btn-text">Clean All Items</span>
+          </button>
+          <button data-role="open-selected-btn" type="button" title="Open Selected Bookmarks" aria-label="Open Selected Bookmarks">
+            <span class="btn-icon" aria-hidden="true">↗</span>
+            <span class="btn-text">Open</span>
+          </button>
+        </div>
+        <p data-role="feedback-text" class="feedback feedback-bottom" aria-live="polite" hidden></p>
+      </section>
+
+      <section data-role="tree-container" class="tree"></section>
+    </main>
+
+    <script type="module" src="./sidebar.js"></script>
+  </body>
+</html>

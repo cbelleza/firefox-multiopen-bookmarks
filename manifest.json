@@ -1,0 +1,54 @@
+{
+  "manifest_version": 2,
+  "name": "MultiOpen Bookmarks",
+  "version": "1.3.0",
+  "description": "Select multiple bookmarks and open them in new tabs.",
+  "permissions": [
+    "bookmarks",
+    "tabs",
+    "storage"
+  ],
+  "browser_action": {
+    "default_title": "MultiOpen Bookmarks",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png"
+    }
+  },
+  "sidebar_action": {
+    "default_title": "MultiOpen Bookmarks",
+    "default_panel": "sidebar/sidebar.html",
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png",
+      "48": "icons/48.png"
+    }
+  },
+  "background": {
+    "page": "background.html",
+    "persistent": false
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "browser_style": true,
+    "open_in_tab": true
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "96": "icons/96.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "multiopen-bookmarks@local.dev",
+      "strict_min_version": "148.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  }
+}
