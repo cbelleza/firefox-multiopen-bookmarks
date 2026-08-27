@@ -1,5 +1,4 @@
 import { logDebug } from "./src/utils/logger.js";
-import { logError } from "./src/utils/logger.js";
 
 browser.runtime.onInstalled.addListener(() => {
   logDebug("Extension installed");

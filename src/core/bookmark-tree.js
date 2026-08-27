@@ -1,4 +1,4 @@
-function createNode(rawNode, parentId, depth, expandedFolderIds) {
+function createNode(rawNode, parentId, depth) {
   const hasChildren = Array.isArray(rawNode.children);
   const type = rawNode.type === "separator" ? "separator" : rawNode.url ? "bookmark" : "folder";
 
@@ -9,24 +9,23 @@ function createNode(rawNode, parentId, depth, expandedFolderIds) {
     url: rawNode.url,
     type,
     children: hasChildren ? [] : undefined,
-    depth,
-    isExpanded: type === "folder" ? expandedFolderIds.has(rawNode.id) : undefined
+    depth
   };
 }
 
-function normalizeChildren(rawChildren, parentId, depth, expandedFolderIds, index) {
+function normalizeChildren(rawChildren, parentId, depth, index) {
   const normalized = [];
   const bookmarkIds = [];
 
   for (const rawChild of rawChildren) {
-    const node = createNode(rawChild, parentId, depth, expandedFolderIds);
+    const node = createNode(rawChild, parentId, depth);
     index.byId.set(node.id, node);
 
     if (node.type === "bookmark") {
       index.bookmarksById.set(node.id, node.url || "");
       bookmarkIds.push(node.id);
     } else if (node.type === "folder") {
-      const childResult = normalizeChildren(rawChild.children || [], node.id, depth + 1, expandedFolderIds, index);
+      const childResult = normalizeChildren(rawChild.children || [], node.id, depth + 1, index);
       node.children = childResult.nodes;
       index.folderBookmarkIds.set(node.id, childResult.bookmarkIds);
       bookmarkIds.push(...childResult.bookmarkIds);
@@ -38,8 +37,7 @@ function normalizeChildren(rawChildren, parentId, depth, expandedFolderIds, inde
   return { nodes: normalized, bookmarkIds };
 }
 
-export function buildBookmarkTree(rawTree, expandedFolderIdList = []) {
-  const expandedFolderIds = new Set(expandedFolderIdList);
+export function buildBookmarkTree(rawTree) {
   const index = {
     byId: new Map(),
     bookmarksById: new Map(),
@@ -47,7 +45,7 @@ export function buildBookmarkTree(rawTree, expandedFolderIdList = []) {
   };
 
   const rootChildren = Array.isArray(rawTree[0]?.children) ? rawTree[0].children : [];
-  const result = normalizeChildren(rootChildren, null, 0, expandedFolderIds, index);
+  const result = normalizeChildren(rootChildren, null, 0, index);
   const nodes = result.nodes;
 
   return {
@@ -112,14 +110,7 @@ export function getFolderPath(index, folderId) {
   return path.join(" / ");
 }
 
+/** @deprecated - kept for backwards compat, no longer used (breadcrumb navigation replaces tree expand) */
 export function collectExpandedFolderIds(nodes, expandedIds = new Set()) {
-  for (const node of nodes) {
-    if (node.type === "folder") {
-      if (node.isExpanded) {
-        expandedIds.add(node.id);
-      }
-      collectExpandedFolderIds(node.children || [], expandedIds);
-    }
-  }
   return expandedIds;
 }

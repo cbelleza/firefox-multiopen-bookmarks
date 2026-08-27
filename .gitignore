@@ -44,6 +44,9 @@ temp/
 coverage/
 .nyc_output/
 
+# Opencode / Kilo worktrees (evita vazar node_modules aninhado)
+.kilo/
+
 # Arquivos locais opcionais
 *.bak
 *.tmp

@@ -8,6 +8,7 @@ import { createSelectionStore } from "../core/selection-store.js";
 import { renderTree } from "./tree-renderer.js";
 import { createUiState } from "./state.js";
 import { logError } from "../utils/logger.js";
+import { DEFAULT_SETTINGS } from "../utils/constants.js";
 
 const SEARCH_DEBOUNCE_MS = 120;
 const SELECTION_PERSIST_MS = 200;
@@ -123,7 +124,7 @@ export async function initBookmarksApp(rootSelector = "body") {
   }
 
   const [rawTree, settings, savedSelectionIds] = await Promise.all([getTree(), getSettings(), getSelectedBookmarkIds()]);
-  const { nodes, index } = buildBookmarkTree(rawTree, []);
+  const { nodes, index } = buildBookmarkTree(rawTree);
   const selectionStore = createSelectionStore(index.bookmarksById);
   if (savedSelectionIds.length) {
     selectionStore.setSelectionMany(savedSelectionIds, true);
@@ -360,7 +361,6 @@ export async function initBookmarksApp(rootSelector = "body") {
     try {
       const state = uiState.getState();
       const selectedUrls = selectionStore.getSelectedUrls();
-      const selectedTotalCount = selectedUrls.length;
       const preparedUrls = await prepareUrls(selectedUrls, {
         deduplicateUrls: state.settings.deduplicateUrls,
         skipAlreadyOpen: state.settings.skipAlreadyOpen,
@@ -376,8 +376,8 @@ export async function initBookmarksApp(rootSelector = "body") {
 
       const result = await openPreparedUrls(preparedUrls, {
         confirmThreshold: state.settings.confirmThreshold,
-        confirmCount: selectedTotalCount,
-        confirmOpen: async (count) => window.confirm(`Open ${count} selected items now?\n\nThis checks the total selection across all folders.\n\nClick OK to open or Cancel to abort.`),
+        confirmCount: preparedUrls.length,
+        confirmOpen: async (count) => window.confirm(`Open ${count} selected items now?\n\nClick OK to open or Cancel to abort.`),
         createTabs
       });
 
@@ -632,6 +632,92 @@ export async function initBookmarksApp(rootSelector = "body") {
       closeContextMenu();
     }
   });
+
+  // Keep view in sync when bookmarks change externally
+  let reloadDebounceId = null;
+  async function reloadBookmarks() {
+    try {
+      const freshTree = await getTree();
+      const rebuilt = buildBookmarkTree(freshTree);
+      // Mutate existing index maps to keep selectionStore reference valid
+      index.bookmarksById.clear();
+      for (const [k, v] of rebuilt.index.bookmarksById) index.bookmarksById.set(k, v);
+      index.byId.clear();
+      for (const [k, v] of rebuilt.index.byId) index.byId.set(k, v);
+      index.folderBookmarkIds.clear();
+      for (const [k, v] of rebuilt.index.folderBookmarkIds) index.folderBookmarkIds.set(k, v);
+
+      uiState.setState({ nodes: rebuilt.nodes });
+
+      const state = uiState.getState();
+      if (state.rootFolderId && !isValidRootFolder(index, state.rootFolderId)) {
+        const nextSettings = await setSettings({ rootFolderId: "", lastOpenedFolderId: "" });
+        uiState.setState({ rootFolderId: "", currentFolderId: "", settings: nextSettings });
+        showFeedback(elements, "Root folder no longer exists — view reset.", "warning");
+      } else if (state.currentFolderId && !isFolderInsideRoot(index, state.currentFolderId, state.rootFolderId)) {
+        uiState.setState({ currentFolderId: "" });
+        await setSettings({ lastOpenedFolderId: "" });
+      }
+
+      // Drop stale selections (bookmarks that no longer exist)
+      const currentIds = selectionStore.getSelectedIds();
+      const stale = currentIds.filter((id) => !index.bookmarksById.has(id));
+      if (stale.length) {
+        selectionStore.setSelectionMany(stale, false);
+        scheduleSelectionPersist();
+      }
+
+      scheduleRedraw();
+      syncCountAndButtons();
+    } catch (error) {
+      logError("Failed to reload bookmarks:", error);
+    }
+  }
+
+  function scheduleReload() {
+    if (reloadDebounceId !== null) window.clearTimeout(reloadDebounceId);
+    reloadDebounceId = window.setTimeout(() => {
+      reloadDebounceId = null;
+      void reloadBookmarks();
+    }, 300);
+  }
+
+  if (browser.bookmarks?.onCreated) {
+    browser.bookmarks.onCreated.addListener(scheduleReload);
+    browser.bookmarks.onRemoved.addListener(scheduleReload);
+    browser.bookmarks.onChanged.addListener(scheduleReload);
+    browser.bookmarks.onMoved.addListener(scheduleReload);
+  }
+
+  if (browser.storage?.onChanged) {
+    browser.storage.onChanged.addListener((changes, area) => {
+      if (area !== "local") return;
+      if (changes.settings) {
+        const newValue = changes.settings.newValue || {};
+        const nextSettings = { ...DEFAULT_SETTINGS, ...newValue };
+        const prevSettings = uiState.getState().settings;
+        // Avoid feedback loop if same
+        if (JSON.stringify(prevSettings) !== JSON.stringify(nextSettings)) {
+          elements.skipAlreadyOpenToggle.checked = Boolean(nextSettings.skipAlreadyOpen);
+          uiState.setState({ settings: nextSettings });
+          scheduleRedraw();
+        }
+      }
+      if (changes.selectedBookmarkIds) {
+        const incoming = Array.isArray(changes.selectedBookmarkIds.newValue) ? changes.selectedBookmarkIds.newValue : [];
+        const validIncoming = incoming.filter((id) => index.bookmarksById.has(id));
+        const current = new Set(selectionStore.getSelectedIds());
+        const nextSet = new Set(validIncoming);
+        const same = current.size === nextSet.size && [...current].every((id) => nextSet.has(id));
+        if (!same) {
+          selectionStore.clearSelection();
+          if (validIncoming.length) selectionStore.setSelectionMany(validIncoming, true);
+          syncCountAndButtons();
+          scheduleRedraw();
+        }
+      }
+    });
+  }
 
   window.addEventListener("pagehide", flushSelectionPersist);
   window.addEventListener("beforeunload", flushSelectionPersist);

@@ -25,18 +25,19 @@ function createFavicon(node) {
 
   const faviconUrl = getFaviconUrl(node.url || "");
   if (!faviconUrl) {
-    favicon.style.display = "none";
+    favicon.hidden = true;
     return { favicon, fallback };
   }
 
   favicon.src = faviconUrl;
-  fallback.style.display = "none";
+  fallback.hidden = true;
   favicon.addEventListener("error", () => {
-    favicon.style.display = "none";
-    fallback.style.display = "";
+    favicon.hidden = true;
+    fallback.hidden = false;
   });
   favicon.addEventListener("load", () => {
-    fallback.style.display = "none";
+    fallback.hidden = true;
+    favicon.hidden = false;
   });
 
   return { favicon, fallback };
@@ -45,7 +46,6 @@ function createFavicon(node) {
 function createTitle(text, query = "") {
   const span = document.createElement("span");
   span.className = "tree-title";
-  span.style.cssText = "cursor: pointer;";
 
   if (!query || !query.trim()) {
     span.textContent = text;
@@ -53,22 +53,32 @@ function createTitle(text, query = "") {
   }
 
   const term = query.trim().toLowerCase();
-  const index = text.toLowerCase().indexOf(term);
-  if (index === -1) {
+  const lowerText = text.toLowerCase();
+  let lastIndex = 0;
+  let found = false;
+
+  while (true) {
+    const idx = lowerText.indexOf(term, lastIndex);
+    if (idx === -1) break;
+    found = true;
+    if (idx > lastIndex) {
+      span.appendChild(document.createTextNode(text.slice(lastIndex, idx)));
+    }
+    const mark = document.createElement("mark");
+    mark.className = "search-highlight";
+    mark.textContent = text.slice(idx, idx + term.length);
+    span.appendChild(mark);
+    lastIndex = idx + term.length;
+  }
+
+  if (!found) {
     span.textContent = text;
     return span;
   }
 
-  const before = text.substring(0, index);
-  const match = text.substring(index, index + term.length);
-  const after = text.substring(index + term.length);
-
-  span.textContent = before;
-  const mark = document.createElement("mark");
-  mark.className = "search-highlight";
-  mark.textContent = match;
-  span.appendChild(mark);
-  span.appendChild(document.createTextNode(after));
+  if (lastIndex < text.length) {
+    span.appendChild(document.createTextNode(text.slice(lastIndex)));
+  }
 
   return span;
 }
@@ -76,21 +86,16 @@ function createTitle(text, query = "") {
 function createFolderItem(node, handlers, isRootFolder, query = "") {
   const row = document.createElement("div");
   row.className = "tree-row tree-row-folder";
-  row.style.cssText = "padding-left: 8px; cursor: pointer;";
 
   const expandIcon = document.createElement("span");
   expandIcon.className = "tree-expand-icon";
-  expandIcon.style.cssText = "font-size: 10px; color: #999; margin-right: 4px;";
   expandIcon.textContent = "▶";
 
   const folderIcon = document.createElement("span");
   folderIcon.className = "folder-icon";
   folderIcon.textContent = FOLDER_ICON;
 
-  const title = document.createElement("span");
-  title.className = "tree-title";
-  title.textContent = node.title;
-  title.style.cssText = "cursor: pointer;";
+  const title = createTitle(node.title, query);
 
   const rootButton = document.createElement("button");
   rootButton.type = "button";
@@ -124,7 +129,6 @@ function createFolderItem(node, handlers, isRootFolder, query = "") {
 function createBookmarkItem(node, handlers, isSelected, pathLabel = "", query = "") {
   const row = document.createElement("div");
   row.className = "tree-row tree-row-bookmark";
-  row.style.cssText = "padding-left: 28px; cursor: pointer;";
 
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
@@ -134,13 +138,8 @@ function createBookmarkItem(node, handlers, isSelected, pathLabel = "", query = 
   checkbox.addEventListener("change", () => handlers.onToggleSelection(node.id, checkbox.checked));
 
   const { favicon, fallback } = createFavicon(node);
-  favicon && (favicon.style.cursor = "pointer");
-  fallback && (fallback.style.cursor = "pointer");
 
-  const title = document.createElement("span");
-  title.className = "tree-title";
-  title.textContent = node.title;
-  title.style.cssText = "cursor: pointer;";
+  const title = createTitle(node.title, query);
 
   row.addEventListener("click", (event) => {
     const target = event.target;
@@ -226,7 +225,7 @@ function getFolderContent(allNodes, index, currentFolderId) {
 
 function createBreadcrumbStyle() {
   const style = document.createElement("div");
-  style.style.cssText = "display: flex; align-items: center; gap: 4px; padding: 8px; background: #fafafa; border-radius: 6px; margin-bottom: 8px; overflow-x: auto; white-space: nowrap; font-size: 14px;";
+  style.className = "tree-breadcrumb";
   return style;
 }
 
@@ -279,10 +278,8 @@ function appendBreadcrumbActions(container, handlers, options = {}) {
 function createNavButton(text, onClick) {
   const btn = document.createElement("button");
   btn.type = "button";
-  btn.style.cssText = "border: none; background: transparent; padding: 2px 4px; cursor: pointer; border-radius: 4px; font-weight: 600; color: #333;";
+  btn.className = "breadcrumb-nav-btn";
   btn.textContent = text;
-  btn.addEventListener("mouseenter", () => { btn.style.background = "#ddd"; });
-  btn.addEventListener("mouseleave", () => { btn.style.background = "transparent"; });
   btn.addEventListener("click", onClick);
   return btn;
 }
@@ -290,13 +287,7 @@ function createNavButton(text, onClick) {
 function createNavText(text, isLast = false) {
   const span = document.createElement("span");
   span.textContent = text;
-  if (isLast) {
-    span.style.cssText = "font-weight: 600; color: #333;";
-  } else {
-    span.style.cssText = "cursor: pointer; color: #555; padding: 2px 6px; border-radius: 4px;";
-    span.addEventListener("mouseenter", () => { span.style.background = "#ddd"; span.style.color = "#333"; });
-    span.addEventListener("mouseleave", () => { span.style.background = "transparent"; span.style.color = "#555"; });
-  }
+  span.className = isLast ? "breadcrumb-nav-text is-last" : "breadcrumb-nav-text";
   return span;
 }
 
@@ -340,7 +331,6 @@ export function renderTree(
 
   if (query) {
     const searchHeader = createBreadcrumbStyle();
-    searchHeader.style.marginBottom = "8px";
     appendBreadcrumbActions(searchHeader, handlers, {
       showReset: Boolean(rootFolderId),
       showSelect: canSelectVisible,
@@ -399,8 +389,7 @@ export function renderTree(
   for (let i = 0; i < relativePath.length; i++) {
     const sep = document.createElement("span");
     sep.textContent = "/";
-    sep.style.color = "#888";
-    sep.style.fontSize = "14px";
+    sep.className = "breadcrumb-separator";
     breadcrumb.appendChild(sep);
     breadcrumb.appendChild(createNavText(relativePath[i].title, i === relativePath.length - 1));
     if (i < relativePath.length - 1) {

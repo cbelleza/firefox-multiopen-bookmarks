@@ -1,0 +1,26 @@
+{
+  "name": "firefox-multiopen-bookmarks",
+  "version": "1.4.0",
+  "description": "Select multiple bookmarks and open them in new tabs.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "build": "./build.sh",
+    "build:sources": "./build.sh --with-sources",
+    "check": "npm run lint && npm test && npx web-ext lint --source-dir=. --ignore-files=\"build.sh\""
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0",
+    "@eslint/js": "^9.0.0",
+    "globals": "^15.0.0",
+    "prettier": "^3.0.0",
+    "vitest": "^3.0.0",
+    "web-ext": "^8.0.0",
+    "terser": "^5.0.0",
+    "clean-css-cli": "^5.0.0"
+  }
+}

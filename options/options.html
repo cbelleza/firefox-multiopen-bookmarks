@@ -4,12 +4,56 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MultiOpen Bookmarks - Options</title>
+    <link rel="stylesheet" href="../src/ui/shared.css" />
     <link rel="stylesheet" href="./options.css" />
   </head>
   <body>
-    <main class="app">
-      <h1>MultiOpen Bookmarks</h1>
-      <p>Advanced settings will be added in upcoming phases.</p>
+    <main class="app options-app">
+      <header class="options-header">
+        <h1>MultiOpen Bookmarks</h1>
+        <p class="options-subtitle">Configure how bookmarks are opened and displayed.</p>
+      </header>
+
+      <section class="options-card">
+        <h2>Opening behavior</h2>
+
+        <label class="options-row">
+          <span class="options-label">Confirm when opening ≥</span>
+          <input data-role="confirm-threshold" type="number" min="1" max="100" step="1" />
+          <span class="options-hint">tabs</span>
+        </label>
+        <p class="options-desc">Shows a confirmation dialog when opening many tabs at once.</p>
+
+        <label class="options-check">
+          <input data-role="skip-open-toggle" type="checkbox" />
+          <span>Skip already open tabs</span>
+        </label>
+        <p class="options-desc">If enabled, bookmarks whose URL is already open will not be opened again.</p>
+
+        <label class="options-check">
+          <input data-role="deduplicate-toggle" type="checkbox" />
+          <span>Deduplicate URLs</span>
+        </label>
+        <p class="options-desc">Removes duplicate URLs from the selection before opening.</p>
+      </section>
+
+      <section class="options-card">
+        <h2>Folder scope</h2>
+
+        <label class="options-row">
+          <span class="options-label">Default root folder</span>
+          <select data-role="root-folder-select" class="options-select"></select>
+        </label>
+        <p class="options-desc">Limit the popup/sidebar view to a specific folder. You can also set this via the 📌 button in the tree.</p>
+        <p data-role="folder-path" class="options-path" hidden></p>
+        <button data-role="clear-root-btn" type="button" class="options-btn-secondary">Reset to All Bookmarks</button>
+      </section>
+
+      <p data-role="feedback" class="feedback feedback-bottom" hidden></p>
+
+      <footer class="options-footer">
+        <span>Changes are saved automatically.</span>
+      </footer>
     </main>
     <script type="module" src="./options.js"></script>
   </body>

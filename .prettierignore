@@ -1,0 +1,6 @@
+dist
+build
+web-ext-artifacts
+node_modules
+*.xpi
+*.zip
