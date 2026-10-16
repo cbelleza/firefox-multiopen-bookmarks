@@ -92,12 +92,6 @@ export function isValidRootFolder(index, rootFolderId) {
   return Boolean(node && node.type === "folder");
 }
 
-export function getTopLevelFolderOptions(nodes) {
-  return nodes
-    .filter((node) => node.type === "folder")
-    .map((node) => ({ id: node.id, label: node.title }));
-}
-
 export function getFolderPath(index, folderId) {
   const path = [];
   let current = index.byId.get(folderId);
@@ -110,7 +104,3 @@ export function getFolderPath(index, folderId) {
   return path.join(" / ");
 }
 
-/** @deprecated - kept for backwards compat, no longer used (breadcrumb navigation replaces tree expand) */
-export function collectExpandedFolderIds(nodes, expandedIds = new Set()) {
-  return expandedIds;
-}

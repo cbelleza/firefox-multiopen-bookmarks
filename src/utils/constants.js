@@ -10,9 +10,7 @@ export const DEFAULT_SETTINGS = {
 
 export const STORAGE_KEYS = {
   settings: "settings",
-  selectedBookmarkIds: "selectedBookmarkIds",
-  // deprecated: kept for migration cleanup
-  expandedFolderIds: "expandedFolderIds"
+  selectedBookmarkIds: "selectedBookmarkIds"
 };
 
 export const SUPPORTED_PROTOCOLS = new Set([
