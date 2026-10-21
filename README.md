@@ -57,6 +57,8 @@ npm run check     # lint + test + web-ext lint
 
 ## Project Structure
 - `manifest.json` - Extension manifest (`strict_min_version: 142.0`)
+- `AGENTS.md` - House rules + project invariants for agents
+- `DESIGN.md` / `.impeccable/design.json` - Design system (tokens, components, rules)
 - `background.js` / `background.html` - Background (ESM, `runtime.onInstalled` + ping handler)
 - `popup/*` - Popup view (`popup.html` → `shared.css` + `popup.css`)
 - `sidebar/*` - Sidebar view

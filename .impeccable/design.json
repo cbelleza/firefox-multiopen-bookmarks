@@ -1,0 +1,323 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-21T17:20:00Z",
+  "title": "Design System: MultiOpen Bookmarks",
+  "extensions": {
+    "colorMeta": {
+      "bg": {
+        "role": "neutral",
+        "displayName": "Fundo",
+        "canonical": "#f5f7fb",
+        "tonalRamp": ["#101114", "#1f2632", "#2a3a5a", "#344f83", "#4467ab", "#6b86bd", "#a1afc9", "#d7dae0"]
+      },
+      "surface": {
+        "role": "surface",
+        "displayName": "Superfície",
+        "canonical": "#ffffff",
+        "tonalRamp": ["#121212", "#292929", "#424242", "#5c5c5c", "#787878", "#949494", "#b5b5b5", "#dbdbdb"]
+      },
+      "surface-soft": {
+        "role": "surface",
+        "displayName": "Superfície Suave",
+        "canonical": "#f2f2f2",
+        "tonalRamp": ["#121212", "#292929", "#424242", "#5c5c5c", "#787878", "#949494", "#b5b5b5", "#dbdbdb"]
+      },
+      "surface-border": {
+        "role": "neutral",
+        "displayName": "Borda",
+        "canonical": "#dce3ee",
+        "tonalRamp": ["#101213", "#212731", "#2f3e56", "#3c557c", "#4e6fa1", "#738cb5", "#a5b2c5", "#d8dadf"]
+      },
+      "surface-hover": {
+        "role": "neutral",
+        "displayName": "Hover da Linha",
+        "canonical": "#eef4ff",
+        "tonalRamp": ["#0e1116", "#12223f", "#0a327b", "#0041b8", "#0055f0", "#3478f4", "#87a8e3", "#d1d8e6"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Tinta",
+        "canonical": "#1f2937",
+        "tonalRamp": ["#111213", "#23282f", "#334052", "#425875", "#567299", "#798faf", "#a8b3c2", "#d8dbde"]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Tinta Suave",
+        "canonical": "#475569",
+        "tonalRamp": ["#111213", "#24282d", "#37404d", "#4a596e", "#61748f", "#8191a7", "#acb3be", "#d9dbdd"]
+      },
+      "ink-faint": {
+        "role": "neutral",
+        "displayName": "Tinta Fraca",
+        "canonical": "#6b7280",
+        "tonalRamp": ["#111212", "#27282b", "#3d4147", "#545964", "#6d7483", "#8b919d", "#b1b4b9", "#dadbdc"]
+      },
+      "blue": {
+        "role": "primary",
+        "displayName": "Azul de Ação",
+        "canonical": "#2563eb",
+        "tonalRamp": ["#0f1115", "#16223b", "#133171", "#0f3fa8", "#1453dc", "#4476e4", "#8fa7db", "#d2d8e4"]
+      },
+      "blue-soft": {
+        "role": "primary-tint",
+        "displayName": "Azul Suave",
+        "canonical": "#eef3ff",
+        "tonalRamp": ["#0e1116", "#12223f", "#0a327b", "#0041b8", "#0055f0", "#3478f4", "#87a8e3", "#d1d8e6"]
+      },
+      "violet": {
+        "role": "signal",
+        "displayName": "Violeta do Contador",
+        "canonical": "#7c3aed",
+        "tonalRamp": ["#110f15", "#24163b", "#361371", "#480fa8", "#5e14dc", "#7f44e4", "#ab8fdb", "#d9d2e4"]
+      },
+      "violet-soft": {
+        "role": "signal-tint",
+        "displayName": "Cinza do Contador",
+        "canonical": "#e5e7eb",
+        "tonalRamp": ["#121212", "#292929", "#424242", "#5c5c5c", "#787878", "#949494", "#b5b5b5", "#dbdbdb"]
+      },
+      "red": {
+        "role": "signal",
+        "displayName": "Vermelho de Expedição",
+        "canonical": "#ef4444",
+        "tonalRamp": ["#150f0f", "#3c1616", "#721313", "#a90e0e", "#dd1313", "#e54343", "#dc8e8e", "#e4d2d2"]
+      },
+      "red-deep": {
+        "role": "signal",
+        "displayName": "Vermelho Profundo",
+        "canonical": "#dc2626",
+        "tonalRamp": ["#150f0f", "#391919", "#6b1a1a", "#9e1919", "#ce2121", "#da4e4e", "#d69494", "#e3d4d4"]
+      },
+      "amber": {
+        "role": "accent",
+        "displayName": "Âmbar da Pasta Raiz",
+        "canonical": "#ffc857",
+        "tonalRamp": ["#16130e", "#3f3112", "#7b560a", "#b87b00", "#f0a100", "#f4b534", "#e3c587", "#e6dfd1"]
+      },
+      "highlight": {
+        "role": "accent",
+        "displayName": "Realce de Busca",
+        "canonical": "#fef08a",
+        "tonalRamp": ["#16150e", "#3f3a13", "#7a6c0b", "#b6a002", "#eed102", "#f3dc35", "#e2d788", "#e6e3d1"]
+      },
+      "highlight-ink": {
+        "role": "accent",
+        "displayName": "Tinta do Realce",
+        "canonical": "#854d0e",
+        "tonalRamp": ["#15120f", "#3b2a17", "#704515", "#a66011", "#d97e17", "#e29846", "#dab790", "#e4dcd3"]
+      },
+      "menu-bg": {
+        "role": "surface",
+        "displayName": "Fundo do Menu",
+        "canonical": "#f8faff",
+        "tonalRamp": ["#0e1016", "#121f3f", "#0a2a7b", "#0034b8", "#0044f0", "#346bf4", "#87a1e3", "#d1d7e6"]
+      },
+      "menu-fg": {
+        "role": "neutral",
+        "displayName": "Tinta do Menu",
+        "canonical": "#162031",
+        "tonalRamp": ["#101113", "#202731", "#2d3d58", "#39537f", "#4a6ca5", "#6f8ab9", "#a4b1c6", "#d7dadf"]
+      }
+    },
+    "typographyMeta": {
+      "title": {
+        "displayName": "Título",
+        "purpose": "Cabeçalho da página de opções (22px/700). É o único título de verdade do produto — a popup não tem h1."
+      },
+      "body": {
+        "displayName": "Corpo",
+        "purpose": "Título do bookmark na árvore (16px/400, com reticências quando não cabe)."
+      },
+      "label": {
+        "displayName": "Rótulo",
+        "purpose": "Rótulos das opções (13px/600) e títulos de cartão em caixa alta com tracking 0.05em."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "URL da linha, rótulo de separador, contador, feedback e rodapé: 12px. Piso de 12px vale para todo texto de conteúdo."
+      },
+      "button": {
+        "displayName": "Botão",
+        "purpose": "Rótulo dos botões (12px/600, line-height 1) com ícone de 13px ao lado."
+      }
+    },
+    "shadows": [
+      {
+        "name": "sombra-botao",
+        "value": "0 1px 2px rgba(0,0,0,.05)",
+        "purpose": "Botões em repouso — elevação mínima; some no :active."
+      },
+      {
+        "name": "sombra-breadcrumb",
+        "value": "0 4px 6px -1px rgba(0,0,0,.05)",
+        "purpose": "A fita de caminho grudada no topo da lista (position: sticky) precisa se destacar do conteúdo que passa por baixo."
+      },
+      {
+        "name": "sombra-popover",
+        "value": "0 10px 24px rgba(16,24,40,.18)",
+        "purpose": "Menu de contexto (--menu-shadow). No modo escuro vira 0 12px 26px rgba(0,0,0,.45)."
+      },
+      {
+        "name": "realce-acao",
+        "value": "0 4px 12px rgba(124,58,237,.3) (contador) / 0 4px 12px rgba(220,38,38,.35) (hover do Open)",
+        "purpose": "Contador com seleção e hover do botão de expedição: a única coisa da interface que 'acende'."
+      }
+    ],
+    "motion": [
+      {
+        "name": "hover-botao",
+        "value": "transform translateY(-1px) + box-shadow 0 3px 8px rgba(0,0,0,.12) em .15s ease",
+        "purpose": "O botão sobe 1px ao passar o mouse e volta afundado no :active."
+      },
+      {
+        "name": "hover-linha",
+        "value": "background .1s ease para #eef4ff + font-weight 600 no título",
+        "purpose": "A linha da árvore acende rápido — é o alvo principal do popup."
+      },
+      {
+        "name": "contador",
+        "value": "all .2s ease na troca de cor do contador",
+        "purpose": "O contador troca de cinza para violeta quando a seleção muda: a cor é o feedback."
+      }
+    ],
+    "breakpoints": [
+      { "name": "popup", "value": "720px" },
+      { "name": "options", "value": "640px" },
+      { "name": "sidebar", "value": "fluid" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botão de ação",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Botão claro com gradiente branco e borda azulada: 32px de altura mínima, 12px/600, ícone decorativo à esquerda.",
+      "html": "<button class=\"ds-btn\" type=\"button\"><span class=\"ds-btn-icon\" aria-hidden=\"true\">☒</span><span>Clean All Items</span></button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:32px;border-radius:8px;border:1px solid #bfd0ea;background:linear-gradient(to bottom,#ffffff,#f8f9fa);padding:6px 14px;cursor:pointer;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:12px;font-weight:600;color:#1f2937;line-height:1;white-space:nowrap;box-shadow:0 1px 2px rgba(0,0,0,.05);transition:all 150ms ease}.ds-btn-icon{font-size:13px;line-height:1}.ds-btn:active{transform:translateY(1px);box-shadow:none}.ds-btn:not(:disabled):hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.12)}.ds-btn:focus-visible{outline:2px solid #2563eb;outline-offset:2px}"
+    },
+    {
+      "name": "Botão Open",
+      "kind": "button",
+      "refersTo": "button-open",
+      "description": "A ação que abre as abas em lote: fundo vermelho, texto branco, e cinza travado quando não há seleção.",
+      "html": "<button class=\"ds-btn-open\" type=\"button\"><span class=\"ds-btn-icon\" aria-hidden=\"true\">↗</span><span>Open</span></button>",
+      "css": ".ds-btn-open{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:32px;border-radius:8px;border:1px solid #dc2626;background:#ef4444;padding:6px 14px;cursor:pointer;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:12px;font-weight:600;color:#ffffff;line-height:1;white-space:nowrap;transition:all 150ms ease}.ds-btn-open:not(:disabled):hover{background:#dc2626;box-shadow:0 4px 12px rgba(220,38,38,.35)}.ds-btn-open:disabled{background:#e0e0e0;border-color:#cccccc;color:#9e9e9e;cursor:not-allowed}.ds-btn-open:focus-visible{outline:2px solid #2563eb;outline-offset:2px}"
+    },
+    {
+      "name": "Contador de selecionados",
+      "kind": "chip",
+      "refersTo": "counter",
+      "description": "O único número que muda sozinho: cinza em repouso, violeta com seleção, sempre em tabular-nums.",
+      "html": "<span class=\"ds-counter\" data-count=\"3\">Selected: 3</span>",
+      "css": ".ds-counter{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:12px;font-weight:800;color:#4b5563;background:#e5e7eb;padding:3px 10px;border-radius:6px;display:inline-flex;width:fit-content;text-transform:uppercase;letter-spacing:.05em;font-variant-numeric:tabular-nums;transition:all .2s ease}.ds-counter:not([data-count='0']){color:#ffffff;background:#7c3aed;box-shadow:0 4px 12px rgba(124,58,237,.3)}"
+    },
+    {
+      "name": "Linha de bookmark",
+      "kind": "custom",
+      "refersTo": "tree-row",
+      "description": "Linha da árvore: a linha inteira é o alvo, o checkbox de 16px é só o indicador, o título corta e a URL fica à direita.",
+      "html": "<div class=\"ds-row\"><input type=\"checkbox\" checked><span class=\"ds-favicon\">🔖</span><span class=\"ds-title\">CDB Resgate Automático</span><span class=\"ds-url\">web.ion.itau/investir</span></div>",
+      "css": ".ds-row{display:flex;align-items:center;gap:6px;margin:3px 6px;padding:7px 8px;border-radius:8px;transition:background .1s ease}.ds-row:hover{background:#eef4ff}.ds-row:hover .ds-title{font-weight:600}.ds-row input[type='checkbox']{width:16px;height:16px;accent-color:#4a7bff}.ds-favicon{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;flex:0 0 16px;border-radius:4px;font-size:12px;background:rgba(107,114,128,.1)}.ds-title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0;font-size:16px;color:#1f2937}.ds-url{margin-left:auto;color:#475569;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:300px}.ds-row:focus-within{outline:2px solid #2563eb;outline-offset:2px}"
+    },
+    {
+      "name": "Linha de pasta",
+      "kind": "custom",
+      "refersTo": "tree-folder",
+      "description": "Pasta da árvore: ícone, título e o pino que define a pasta raiz (ativo fica âmbar).",
+      "html": "<div class=\"ds-row ds-row-folder\"><span class=\"ds-expand\">▶</span><span class=\"ds-folder-icon\">📁</span><span class=\"ds-title\">Investimentos</span><button class=\"ds-root\" type=\"button\">📌</button></div>",
+      "css": ".ds-row-folder{padding-left:8px;cursor:pointer;user-select:none}.ds-expand{font-size:12px;color:#6b7280;margin-right:4px}.ds-folder-icon{font-size:14px;line-height:1}.ds-root{border:1px solid transparent;border-radius:5px;min-width:24px;height:24px;background:transparent;cursor:pointer;opacity:.7;font-size:14px;line-height:1}.ds-root:hover{border-color:#dce3ee;opacity:1}.ds-root.is-active{border-color:rgba(255,200,87,.6);background:rgba(255,200,87,.2);opacity:1}.ds-root:focus-visible{outline:2px solid #2563eb;outline-offset:2px}"
+    },
+    {
+      "name": "Breadcrumb",
+      "kind": "nav",
+      "refersTo": "breadcrumb",
+      "description": "Fita de caminho colada no topo da lista, com reset (vermelho no hover) e selecionar visíveis (ciano no hover).",
+      "html": "<div class=\"ds-crumb\"><div class=\"ds-crumb-actions\"><button class=\"ds-crumb-btn ds-crumb-reset\" type=\"button\" aria-label=\"Reset View\">↺</button><button class=\"ds-crumb-btn ds-crumb-select\" type=\"button\" aria-label=\"Select Visible Items\">☐</button></div><span class=\"ds-crumb-text\">Todos os marcadores</span></div>",
+      "css": ".ds-crumb{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:10px 12px;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:2px solid #f1f5f9;border-radius:12px 12px 0 0;margin-bottom:12px;overflow-x:hidden;white-space:normal;font-size:14px;position:sticky;top:0;z-index:10;box-shadow:0 4px 6px -1px rgba(0,0,0,.05)}.ds-crumb-actions{display:inline-flex;align-items:center;gap:6px;margin-right:6px;flex:0 0 auto}.ds-crumb-btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid #cbd5e1;border-radius:6px;background:#f1f5f9;color:#475569;font-size:16px;font-weight:700;padding:0;line-height:1;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.05);transition:all 150ms ease}.ds-crumb-reset{width:28px;height:28px}.ds-crumb-select{width:30px;height:30px}.ds-crumb-reset:hover{background:#ef4444;color:#ffffff;border-color:#dc2626;box-shadow:0 2px 8px rgba(239,68,68,.3)}.ds-crumb-select:not(:disabled):hover{background:#0ea5e9;color:#ffffff;border-color:#0284c7;box-shadow:0 2px 8px rgba(14,165,233,.3)}.ds-crumb-btn:disabled{opacity:.4;background:#f1f5f9;border-color:#e2e8f0;color:#94a3b8;cursor:not-allowed}.ds-crumb-btn:focus-visible{outline:2px solid #2563eb;outline-offset:2px}"
+    },
+    {
+      "name": "Botão de limpar busca",
+      "kind": "button",
+      "refersTo": "clear-search",
+      "description": "Círculo de 24px sobre o campo de busca, à direita, escondido enquanto a busca está vazia.",
+      "html": "<div class=\"ds-search\"><input type=\"search\" placeholder=\"Search Title Or URL\"><button class=\"ds-clear\" type=\"button\" aria-label=\"Clear search text\">×</button></div>",
+      "css": ".ds-search{position:relative;flex:1}.ds-search input{width:100%;box-sizing:border-box;padding-right:34px;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:14px}.ds-clear{position:absolute;right:4px;top:50%;transform:translateY(-50%);display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border:none;border-radius:50%;background:#d9dfeb;color:#2f3a4d;font-size:14px;line-height:18px;font-family:inherit;font-weight:600;cursor:pointer;padding:0}.ds-clear:hover{background:#c6d1e3}.ds-clear[hidden]{display:none}.ds-clear:focus-visible{outline:2px solid #2563eb;outline-offset:2px}"
+    },
+    {
+      "name": "Menu de contexto",
+      "kind": "custom",
+      "refersTo": "context-menu",
+      "description": "Popover com as ações do item: fundo quase branco, raio 10px e a única superfície que escurece no modo escuro.",
+      "html": "<div class=\"ds-menu\"><button type=\"button\">Open</button><button type=\"button\">Select folder</button><div class=\"ds-menu-sep\"></div><button type=\"button\">Reset view</button></div>",
+      "css": ".ds-menu{position:fixed;z-index:9999;min-width:196px;padding:6px;border:1px solid #dce3ee;border-radius:10px;background:#f8faff;color:#162031;box-shadow:0 10px 24px rgba(16,24,40,.18)}.ds-menu button{width:100%;text-align:left;border:none;border-radius:8px;background:transparent;color:inherit;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:12px;padding:8px 10px;cursor:pointer}.ds-menu button:hover{background:#e8f0ff}.ds-menu button:focus-visible{outline:2px solid #2563eb;outline-offset:2px}.ds-menu-sep{height:1px;margin:5px 4px;background:rgba(22,32,49,.18)}@media (prefers-color-scheme:dark){.ds-menu{background:#202734;color:#f3f7ff;box-shadow:0 12px 26px rgba(0,0,0,.45)}}"
+    },
+    {
+      "name": "Feedback",
+      "kind": "chip",
+      "refersTo": "feedback",
+      "description": "Faixa de mensagem por tipo (info, erro, sucesso, aviso) que se apaga sozinha depois de 3s.",
+      "html": "<p class=\"ds-feedback\" data-type=\"success\">3 tabs opened.</p>",
+      "css": ".ds-feedback{margin:0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:13px;font-weight:600;border-radius:8px;padding:6px 8px;border:1px solid transparent;background:#eef3ff;color:#1f3f82}.ds-feedback[data-type='error']{color:#8d1d1d;background:#ffe8e8;border-color:#f0b4b4}.ds-feedback[data-type='success']{color:#1f6a3d;background:#e5f7ea;border-color:#b5dfc2}.ds-feedback[data-type='warning']{color:#8a5a08;background:#fff4e4;border-color:#f1d3a3}.ds-feedback[hidden]{display:none}"
+    },
+    {
+      "name": "Cartão das opções",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Cartão branco da página de opções: raio 10px, hairline e títulos em caixa alta.",
+      "html": "<section class=\"ds-card\"><h2>Opening behavior</h2><label class=\"ds-opt\"><span class=\"ds-opt-label\">Confirm when opening ≥</span><input type=\"number\" value=\"10\"><span class=\"ds-opt-hint\">tabs</span></label></section>",
+      "css": ".ds-card{background:#ffffff;border:1px solid #dce3ee;border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px}.ds-card h2{margin:0 0 4px;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:14px;text-transform:uppercase;letter-spacing:.05em;color:#475569}.ds-opt{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px}.ds-opt-label{font-weight:600;min-width:160px}.ds-opt input[type='number']{width:80px;padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:13px;font-variant-numeric:tabular-nums}.ds-opt-hint{font-size:12px;color:#475569}.ds-opt input:focus-visible,.ds-opt select:focus-visible{outline:2px solid #2563eb;outline-offset:2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "O Balcão de Expedição",
+    "overview": "A extensão é um balcão de remessa: uma gaveta densa de etiquetas (os bookmarks) que você marca e despacha de uma vez. A tela é lista, não página — a árvore de linhas brancas ocupa quase tudo, e o chrome é deliberadamente magro: uma barra de busca, uma fita de ações e um contador. Duas cores contam o resto: o violeta do contador de selecionados (o número que muda sozinho enquanto você marca) e o vermelho do botão que efetivamente abre as abas. Tudo o mais é cinza-azulado, hairline de 1px e nada de sombra — o peso visual fica nas linhas, não nas caixas.",
+    "keyCharacteristics": [
+      "Lista densa de linhas: a linha inteira é o alvo, o checkbox é só indicador.",
+      "Uma cor de estado (violeta no contador) e uma cor de ação (vermelho em Abrir).",
+      "Superfície branca sobre cinza-azulado, divisória de 1px, sombra só no que flutua.",
+      "Modo escuro cobre apenas o menu de contexto.",
+      "Piso de 12px em todo texto de conteúdo; contador e threshold em tabular-nums."
+    ],
+    "rules": [
+      {
+        "name": "A Regra do Contador Violeta",
+        "body": "Violeta é o contador de selecionados e nada mais. Ele é o único número que muda sozinho, então é o único que ganha cor — em repouso é cinza.",
+        "section": "colors"
+      },
+      {
+        "name": "A Regra do Vermelho Reservado",
+        "body": "Vermelho só na ação que abre abas em lote (Open) e no reset da visão. Nenhum estado passivo é vermelho.",
+        "section": "colors"
+      },
+      {
+        "name": "A Regra da Linha-Alvo",
+        "body": "Na árvore, o alvo do clique é a linha inteira; o checkbox é indicador de estado (16px, accent-color azul). Nenhum item tem botão próprio.",
+        "section": "layout"
+      },
+      {
+        "name": "A Regra do Piso de 12px",
+        "body": "Texto de conteúdo nunca abaixo de 12px — URL, contador, rótulo de separador, feedback, rodapé. Números que formam coluna ou contador usam tabular-nums para não dançar quando mudam.",
+        "section": "typography"
+      },
+      {
+        "name": "A Regra da Sombra só no Flutuante",
+        "body": "Sombra marca o que está acima da lista (breadcrumb, menu, contador) ou o que é pressionável (botão). A árvore, os cartões e os campos são planos, separados por hairline.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do manter 12px como piso de texto de conteúdo e tabular-nums em contador e threshold.",
+      "Do deixar a linha da árvore inteira clicável e o checkbox só como indicador.",
+      "Do dar foco visível a todo controle (anel azul de 2px em shared.css).",
+      "Do manter alvo de toque ≥24px nos botões.",
+      "Do deixar o shared.css como fonte única do estilo das três telas."
+    ],
+    "donts": [
+      "Don't usar violeta fora do contador de selecionados.",
+      "Don't usar vermelho fora do Open e do reset da visão.",
+      "Don't usar opacidade para texto secundário: cor explícita e medida (≥4.5:1).",
+      "Don't duplicar regra de CSS em popup.css, sidebar.css ou options.css — lá só vai ajuste de layout.",
+      "Don't usar style.cssText para estilo (só hidden/left/top do menu)."
+    ]
+  }
+}

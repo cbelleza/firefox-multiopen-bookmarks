@@ -36,19 +36,19 @@
 .search-input-wrap input {
   width: 100%;
   box-sizing: border-box;
-  padding-right: 28px;
+  padding-right: 34px;
 }
 
 .clear-search-btn {
   position: absolute;
-  right: 6px;
+  right: 4px;
   top: 50%;
   transform: translateY(-50%);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
   border: none;
   border-radius: 50%;
   background: #d9dfeb;
@@ -137,7 +137,7 @@
 }
 
 .counter {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   color: #4b5563;
   background: #e5e7eb;
@@ -147,13 +147,16 @@
   width: fit-content;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  font-variant-numeric: tabular-nums;
   transition: all 0.2s ease;
 }
 
 .counter:not([data-count="0"]) {
   color: #ffffff;
-  background: #8b5cf6;
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  /* #8b5cf6 dava 4.23:1 com o branco — reprovava AA para 12px.
+     #7c3aed (violeta-600) fica na mesma família e passa de 5.7:1. */
+  background: #7c3aed;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
 }
 
 .buttons button:disabled {
@@ -416,14 +419,14 @@
 }
 
 .tree-expand-icon {
-  font-size: 10px;
-  color: #999;
+  font-size: 12px;
+  color: #6b7280;
   margin-right: 4px;
 }
 
 .tree-expand-btn {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -456,8 +459,10 @@
 
 .tree-url {
   margin-left: auto;
-  opacity: 0.6;
-  font-size: 11px;
+  /* #475569 no branco da árvore: 7:1. A versão anterior (opacity .6 do
+     #1f2937) dava 3.96:1 e reprovava AA. */
+  color: #475569;
+  font-size: 12px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -473,7 +478,7 @@
   border: 1px solid transparent;
   border-radius: 5px;
   min-width: 24px;
-  height: 22px;
+  height: 24px;
   background: transparent;
   cursor: pointer;
   opacity: 0.7;
@@ -554,7 +559,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 11px;
+  font-size: 12px;
   background: color-mix(in srgb, currentColor 10%, transparent);
 }
 
@@ -580,8 +585,8 @@
 }
 
 .tree-separator-label {
-  font-size: 11px;
-  color: #7b869a;
+  font-size: 12px;
+  color: #475569;
   white-space: nowrap;
 }
 
@@ -591,4 +596,13 @@
   padding: 0 1px;
   border-radius: 2px;
   font-weight: 700;
+}
+
+/* ─── Foco visível (regra da casa) ──────────────────────────────────────────
+   Todo controle clicável precisa de marca de foco — o teclado chegava no
+   botão sem nenhuma. :where() mantém a especificidade em 0 para não
+   brigar com as regras específicas do projeto. */
+:where(button, a, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
 }
