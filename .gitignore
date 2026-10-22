@@ -50,3 +50,9 @@ coverage/
 # Arquivos locais opcionais
 *.bak
 *.tmp
+
+# Segredo de auth (nunca versionar)
+.dev.vars
+
+# Screenshots de review (regeneraveis via npm run shots)
+.impeccable/review/
