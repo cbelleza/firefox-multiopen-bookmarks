@@ -58,14 +58,14 @@ jobs:
         env:
           WEB_EXT_API_KEY: ${{ secrets.AMO_JWT_ISSUER }}
           WEB_EXT_API_SECRET: ${{ secrets.AMO_JWT_SECRET }}
-        # approval-timeout 0: não prende o job na fila de revisão; a versão entra
-        # na fila mesmo assim, e o job falha sozinho se o AMO recusar.
+        # approval-timeout 20min: espera a auto-aprovação e baixa o xpi assinado; se a
+        # revisão for humana longa, estoura o timeout e a versão segue na fila.
         run: >
           npx --yes web-ext sign
           --source-dir dist
           --channel unlisted
           --upload-source-code "multiopen-bookmarks-sources-v$(node -p "require('./manifest.json').version").zip"
-          --approval-timeout 0
+          --approval-timeout 1200000
           --artifacts-dir signed
       - uses: actions/upload-artifact@v4
         with:
