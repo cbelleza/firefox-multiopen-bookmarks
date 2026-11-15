@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: "Bump da versão antes de assinar (AMO recusa versão repetida)"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+        default: patch
+
+jobs:
+  validate:
+    if: github.event_name != 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+      # check = eslint + vitest + web-ext lint (source); build gera XPI sem bump
+      - run: npm run check
+      - run: ./build.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: xpi
+          path: "*.xpi"
+
+  publish:
+    if: github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+      # bump sincroniza manifest+package+README antes de qualquer upload
+      - run: ./build.sh --bump "${{ inputs.bump || 'patch' }}" --with-sources
+      # o bump tem que voltar pro repo: sem isso, o próximo publish re-bumpa da
+      # mesma base e o AMO recusa a versão repetida
+      - name: Commitar o bump
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || (git commit -m "bump v$(node -p "require('./manifest.json').version") [skip ci]" && git push)
+      - name: Assinar no AMO (channel unlisted / self-distribution)
+        env:
+          WEB_EXT_API_KEY: ${{ secrets.AMO_JWT_ISSUER }}
+          WEB_EXT_API_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+        # approval-timeout 0: não prende o job na fila de revisão; a versão entra
+        # na fila mesmo assim, e o job falha sozinho se o AMO recusar.
+        run: >
+          npx --yes web-ext sign
+          --source-dir dist
+          --channel unlisted
+          --upload-source-code "multiopen-bookmarks-sources-v$(node -p "require('./manifest.json').version").zip"
+          --approval-timeout 0
+          --artifacts-dir signed
+      - uses: actions/upload-artifact@v4
+        with:
+          name: xpi-assinado
+          path: signed/*
