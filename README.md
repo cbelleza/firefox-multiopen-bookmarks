@@ -37,9 +37,9 @@ Firefox WebExtension to select multiple bookmarks and open them together in new 
 ## Build (AMO)
 ```bash
 npm install
-./build.sh                # → multiopen-bookmarks-v1.4.0.xpi (minified, linted, tested)
+./build.sh                # → multiopen-bookmarks-v1.4.1.xpi (minified, linted, tested)
 ./build.sh --no-minify    # → without terser/cleancss
-./build.sh --with-sources # → + multiopen-bookmarks-sources-v1.4.0.zip (required by AMO when minified)
+./build.sh --with-sources # → + multiopen-bookmarks-sources-v1.4.1.zip (required by AMO when minified)
 ./build.sh --bump patch   # 1.4.0 → 1.4.1  (also updates manifest.json/package.json/README)
 ./build.sh --bump minor   # 1.4.0 → 1.5.0
 ./build.sh --bump major   # 1.4.0 → 2.0.0
@@ -83,4 +83,4 @@ npm run check     # lint + test + web-ext lint
 - **1.3.0** — Previous feature set (multi-select, persistence, favicons, context menu, dark mode).
 
 ## Version
-1.4.0
+1.4.1

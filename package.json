@@ -1,6 +1,6 @@
 {
   "name": "firefox-multiopen-bookmarks",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Select multiple bookmarks and open them in new tabs.",
   "type": "module",
   "private": true,
